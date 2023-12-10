@@ -1,0 +1,58 @@
+{
+  "name": "nodegamesjs-forge",
+  "version": "1.0.0",
+  "description": "This is a cli tool to package nodegames games to an executable for the platforms of your choice.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willmil11/nodegamesjs-forge.git"
+  },
+  "keywords": [
+    "nodegames",
+    "games",
+    "node",
+    "node.js",
+    "js",
+    "javascript",
+    "nodegamesjs",
+    "nodegame",
+    "game",
+    "forge",
+    "exe",
+    "executable",
+    "exes",
+    "executables",
+    "win",
+    "windows",
+    "linux",
+    "mac",
+    "64",
+    "bit",
+    "64bit",
+    "32bit",
+    "32",
+    "x64",
+    "x86",
+    "toexe",
+    "toexecutable",
+    "toexes",
+    "toexecutables"
+  ],
+  "author": "willmil11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willmil11/nodegamesjs-forge/issues"
+  },
+  "homepage": "https://github.com/willmil11/nodegamesjs-forge#readme",
+  "bin": {
+    "nodegamesjs-forge": "app.js",
+    "nodegames-forge": "app.js"
+  },
+  "dependencies": {
+    "easynodes": "^1.0.1",
+    "nexe": "^4.0.0-rc.2"
+  }
+}
