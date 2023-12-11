@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 (async function () {
+    var process = require("process");
+    //Disable tls reject unauthorized
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
     console.log("[Nodegames-forge] Getting dependencies...")
     var child_process = require('child_process');
     var execSync = child_process.execSync;
@@ -202,7 +205,7 @@
     try {
         await nexe.compile({
             "input": main,
-            "target": "linux-" + (arch === 64 ? "x64" : "x86") + "-20.0.0",
+            "target": "linux-" + (arch === 64 ? "x64" : "x86") + "-12.0.0",
             "output": "output/linux-" + main,
         })
     }
@@ -215,7 +218,7 @@
     try {
         await nexe.compile({
             "input": main,
-            "target": "windows-" + (arch === 64 ? "x64" : "x86") + "-20.0.0",
+            "target": "windows-" + (arch === 64 ? "x64" : "x86") + "-12.0.0",
             "output": "output/windows-" + main + ".exe",
         })
     }
@@ -228,7 +231,7 @@
     try {
         await nexe.compile({
             "input": main,
-            "target": "mac-x64-20.0.0",
+            "target": "mac-x64-12.0.0",
             "output": "output/mac-" + main,
         })
     }
@@ -237,6 +240,6 @@
         process.exit(1);
     }
     console.log("[Nodegames-forge] [Build] Executable for mac as \"mac-" + main + "\" created.")
-    console.log("[Nodegames-forge] [Build] Built successfully.")
+    console.log("[Nodegames-forge] [Build] Built all executables successfully.")
     process.exit(1);
 })()
