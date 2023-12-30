@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 (async function () {
     var process = require("process");
-    //Disable tls reject unauthorized
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
     console.log("[Nodegames-forge] Getting dependencies...")
     var child_process = require('child_process');
     var execSync = child_process.execSync;
@@ -64,6 +62,7 @@
     }
     console.log("[Nodegames-forge] Got dependencies.")
     console.log("[Nodegames-forge] Checking command aguments...");
+    var build = false;
     var versionType = 64
     if (args[0] === "64" || args[0] === "64bit" || args[0] === "x64") {
         versionType = 64
@@ -79,45 +78,58 @@
             else {
                 if (args[0] === "--help" || args[0] === "-?") {
                     console.log("[Nodegames-forge] Command arguments checked.")
-                    console.log("[Nodegames-forge] ----- Help -----")
-                    console.log("                  nodegames-forge [64, 64bit, x64, 32, 32bit, x86]")
-                    console.log("                  nodegamesjs-forge [64, 64bit, x64, 32, 32bit, x86]")
-                    console.log("                  nodegamesjs-forge --help")
-                    console.log("                  nodegamesjs-forge -?")
-                    console.log("")
-                    console.log("                  Exemples:")
-                    console.log("                      nodegames-forge 64")
-                    console.log("                      nodegames-forge 32")
-                    console.log("                      nodegames-forge")
-                    console.log("                      nodegamesjs-forge 64")
-                    console.log("                      nodegamesjs-forge 32")
-                    console.log("                      nodegamesjs-forge")
-                    console.log("")
-                    console.log("                  64, 64bit, x64: 64bit version")
-                    console.log("                  32, 32bit, x86: 32bit version")
-                    console.log("                  --help, -?: Help")
-                    console.log("                  ----- Help -----")
+                        console.log("[Nodegames-forge] ----- Help -----")
+                        console.log("                  nodegames-forge [64, 64bit, x64, 32, 32bit, x86, --help, --build, -?]")
+                        console.log("                  nodegamesjs-forge [64, 64bit, x64, 32, 32bit, x86, --help, --build, -?]")
+                        console.log("")
+                        console.log("                  Exemples:")
+                        console.log("                      nodegames-forge 64")
+                        console.log("                      nodegames-forge 32")
+                        console.log("                      nodegames-forge --help")
+                        console.log("                      nodegames-forge --build")
+                        console.log("                      nodegames-forge") 
+                        console.log("                      nodegamesjs-forge 64")
+                        console.log("                      nodegamesjs-forge 32")
+                        console.log("                      nodegamesjs-forge --help")
+                        console.log("                      nodegamesjs-forge --build")
+                        console.log("                      nodegamesjs-forge")
+                        console.log("")
+                        console.log("                  64, 64bit, x64: 64bit version")
+                        console.log("                  32, 32bit, x86: 32bit version")
+                        console.log("                  --help, -?: Help")
+                        console.log("                  --build: Build an executable that works on your machine")
+                        console.log("                  ----- Help -----")
                     process.exit(0);
                 }
                 else {
-                    console.log("[Nodegames-forge] Invalid command argument.")
-                    console.log("[Nodegames-forge] ----- Help -----")
-                    console.log("                  nodegames-forge [64, 64bit, x64, 32, 32bit, x86, --help, -?]")
-                    console.log("                  nodegamesjs-forge [64, 64bit, x64, 32, 32bit, x86, --help, -?]")
-                    console.log("")
-                    console.log("                  Exemples:")
-                    console.log("                      nodegames-forge 64")
-                    console.log("                      nodegames-forge 32")
-                    console.log("                      nodegames-forge")
-                    console.log("                      nodegamesjs-forge 64")
-                    console.log("                      nodegamesjs-forge 32")
-                    console.log("                      nodegamesjs-forge")
-                    console.log("")
-                    console.log("                  64, 64bit, x64: 64bit version")
-                    console.log("                  32, 32bit, x86: 32bit version")
-                    console.log("                  --help, -?: Help")
-                    console.log("                  ----- Help -----")
-                    process.exit(1);
+                    if (args[0] === "--build"){
+                        build = true;
+                    }
+                    else{
+                        console.log("[Nodegames-forge] Invalid command argument.")
+                        console.log("[Nodegames-forge] ----- Help -----")
+                        console.log("                  nodegames-forge [64, 64bit, x64, 32, 32bit, x86, --help, --build, -?]")
+                        console.log("                  nodegamesjs-forge [64, 64bit, x64, 32, 32bit, x86, --help, --build, -?]")
+                        console.log("")
+                        console.log("                  Exemples:")
+                        console.log("                      nodegames-forge 64")
+                        console.log("                      nodegames-forge 32")
+                        console.log("                      nodegames-forge --help")
+                        console.log("                      nodegames-forge --build")
+                        console.log("                      nodegames-forge") 
+                        console.log("                      nodegamesjs-forge 64")
+                        console.log("                      nodegamesjs-forge 32")
+                        console.log("                      nodegamesjs-forge --help")
+                        console.log("                      nodegamesjs-forge --build")
+                        console.log("                      nodegamesjs-forge")
+                        console.log("")
+                        console.log("                  64, 64bit, x64: 64bit version")
+                        console.log("                  32, 32bit, x86: 32bit version")
+                        console.log("                  --help, -?: Help")
+                        console.log("                  --build: Build an executable that works on your machine")
+                        console.log("                  ----- Help -----")
+                        process.exit(1);
+                    }
                 }
             }
         }
@@ -201,45 +213,64 @@
     if (main.endsWith(".js")) {
         main = main.slice(0, -3)
     }
-    console.log("[Nodegames-forge] [Build] Creating executable for linux as \"linux-" + main + "\"...");
-    try {
-        await nexe.compile({
-            "input": main,
-            "target": "linux-" + (arch === 64 ? "x64" : "x86") + "-12.0.0",
-            "output": "output/linux-" + main,
-        })
+    if (build === false){
+        console.log("[Nodegames-forge] [Build] Creating executable for linux as \"linux-" + main + "\"...");
+        try {
+            await nexe.compile({
+                "input": main,
+                "target": "linux-" + (arch === 64 ? "x64" : "x86") + "-12.0.0",
+                "output": "output/linux-" + main,
+            })
+        }
+        catch (error) {
+            console.log("[Nodegames-forge] [Build] Error while creating executable for linux as \"linux-" + main + "\".")
+            process.exit(1);
+        }
+        console.log("[Nodegames-forge] [Build] Executable for linux as \"linux-" + main + "\" created.")
+        console.log("[Nodegames-forge] [Build] Creating executable for windows as \"windows-" + main + "\"...");
+        try {
+            await nexe.compile({
+                "input": main,
+                "target": "windows-" + (arch === 64 ? "x64" : "x86") + "-12.0.0",
+                "output": "output/windows-" + main + ".exe",
+            })
+        }
+        catch (error) {
+            console.log("[Nodegames-forge] [Build] Error while creating executable for windows as \"windows-" + main + "\".")
+            process.exit(1);
+        }
+        console.log("[Nodegames-forge] [Build] Executable for windows as \"windows-" + main + "\" created.")
+        console.log("[Nodegames-forge] [Build] Creating executable for mac as \"mac-" + main + "\"...");
+        try {
+            await nexe.compile({
+                "input": main,
+                "target": "mac-x64-12.0.0",
+                "output": "output/mac-" + main,
+            })
+        }
+        catch (error) {
+            console.log("[Nodegames-forge] [Build] Error while creating executable for mac as \"mac-" + main + "\".")
+            process.exit(1);
+        }
+        console.log("[Nodegames-forge] [Build] Executable for mac as \"mac-" + main + "\" created.")
+        console.log("[Nodegames-forge] [Build] Built all executables successfully.")
+        process.exit(0);
     }
-    catch (error) {
-        console.log("[Nodegames-forge] [Build] Error while creating executable for linux as \"linux-" + main + "\".")
-        process.exit(1);
+    else{
+        console.log("[Nodegames-forge] [Build] Creating executable for your machine as \"" + main + "\"...");
+        try {
+            await nexe.compile({
+                "input": main,
+                "build": true,
+                "output": "output/" + main + ".exe",
+            })
+        }
+        catch (error) {
+            console.log("[Nodegames-forge] [Build] Error while creating executable for your machine as \"" + main + "\".")
+            process.exit(1);
+        }
+        console.log("[Nodegames-forge] [Build] Executable for your machine as \"" + main + "\" created.")
+        console.log("[Nodegames-forge] [Build] Built executable successfully.")
+        process.exit(0);
     }
-    console.log("[Nodegames-forge] [Build] Executable for linux as \"linux-" + main + "\" created.")
-    console.log("[Nodegames-forge] [Build] Creating executable for windows as \"windows-" + main + "\"...");
-    try {
-        await nexe.compile({
-            "input": main,
-            "target": "windows-" + (arch === 64 ? "x64" : "x86") + "-12.0.0",
-            "output": "output/windows-" + main + ".exe",
-        })
-    }
-    catch (error) {
-        console.log("[Nodegames-forge] [Build] Error while creating executable for windows as \"windows-" + main + "\".")
-        process.exit(1);
-    }
-    console.log("[Nodegames-forge] [Build] Executable for windows as \"windows-" + main + "\" created.")
-    console.log("[Nodegames-forge] [Build] Creating executable for mac as \"mac-" + main + "\"...");
-    try {
-        await nexe.compile({
-            "input": main,
-            "target": "mac-x64-12.0.0",
-            "output": "output/mac-" + main,
-        })
-    }
-    catch (error) {
-        console.log("[Nodegames-forge] [Build] Error while creating executable for mac as \"mac-" + main + "\".")
-        process.exit(1);
-    }
-    console.log("[Nodegames-forge] [Build] Executable for mac as \"mac-" + main + "\" created.")
-    console.log("[Nodegames-forge] [Build] Built all executables successfully.")
-    process.exit(1);
 })()
