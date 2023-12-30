@@ -32,6 +32,15 @@ You can visit the <a href="https://github.com/willmil11/nodegamesjs-forge">githu
 If you find any bugs, please report them <a href="https://github.com/willmil11/nodegamesjs-forge/issues">here</a>
 ## Known bugs
 - If you run the executable in a directory with a parent directory that contains a node_modules directory, the executable will crash
+## Untested stuff
+- The executable for macos
+- The executable for windows
+## Tested stuff
+- The executable for linux
+## Goals
+- Fix known bugs
+- Test the executable for macos
+- Test the executable for windows
 ## Changelog
 ### 1.0.0
 - Initial release
