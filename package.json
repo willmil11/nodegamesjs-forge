@@ -1,6 +1,6 @@
 {
   "name": "nodegamesjs-forge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a cli tool to package nodegames games to an executable for the platforms of your choice.",
   "main": "app.js",
   "scripts": {

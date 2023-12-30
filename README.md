@@ -1,4 +1,4 @@
-# Nodegamesjs-forge
+# Nodegamesjs-forge 1.0.1
 ## Installation
 You'll need to have node.js and npm installed on your device and an internet connection to use this tool, then run in a terminal:
 ```bash
@@ -9,6 +9,8 @@ To update the tool, run in a terminal:
 ```bash
 npm update -g nodegamesjs-forge
 ```
+## Warning
+This packages your game to executable(s) but it packages those with node.js 12.0.0 because nexe doesn't support newer node.js versions yet and this tool uses nexe to package your games easily.
 ## Usage
 To package a nodegames game to executables for 64bit devices, run in the root directory of your game:
 ```bash
@@ -42,5 +44,7 @@ If you find any bugs, please report them <a href="https://github.com/willmil11/n
 - Test the executable for macos
 - Test the executable for windows
 ## Changelog
+### 1.0.1
+- Added warning in the readme
 ### 1.0.0
 - Initial release
